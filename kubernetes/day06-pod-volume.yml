@@ -1,0 +1,18 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: pathnex-pod
+
+spec:
+  containers:
+    - name: web
+      image: nginx
+      volumeMounts:
+        - mountPath: /usr/share/nginx/html
+          name: html-volume
+
+  volumes:
+    - name: html-volume
+      hostPath:
+        path: /data
+        type: Directory
