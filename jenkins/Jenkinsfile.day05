@@ -1,0 +1,29 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('Clone Repository') {
+            steps {
+                git 'https://github.com/pathnex/sample-repo.git'
+            }
+        }
+
+        stage('Build') {
+            steps {
+                echo 'Building project from Git repository'
+            }
+        }
+
+        stage('Test') {
+            steps {
+                echo 'Running unit tests'
+            }
+        }
+
+        stage('Deploy') {
+            steps {
+                echo 'Deploying application'
+            }
+        }
+    }
+}
