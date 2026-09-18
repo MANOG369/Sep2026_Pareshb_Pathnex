@@ -1,0 +1,9 @@
+FROM openjdk:17
+
+WORKDIR /opt/pathnex/java-app
+
+COPY Hello.java /opt/pathnex/java-app/
+
+RUN javac /opt/pathnex/java-app/Hello.java
+
+CMD ["java", "-cp", "/opt/pathnex/java-app", "Hello"]
