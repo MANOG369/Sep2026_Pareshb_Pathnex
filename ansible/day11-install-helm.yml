@@ -1,0 +1,20 @@
+- name: Install Helm
+  hosts: all
+  become: yes
+
+  tasks:
+    - name: Download Helm
+      get_url:
+        url: https://get.helm.sh/helm-v3.7.0-linux-amd64.tar.gz
+        dest: /tmp/helm.tar.gz
+
+    - name: Extract Helm
+      unarchive:
+        src: /tmp/helm.tar.gz
+        dest: /usr/local/bin/
+        remote_src: yes
+
+    - name: Set Helm binary permissions
+      file:
+        path: /usr/local/bin/helm
+        mode: '0755'
