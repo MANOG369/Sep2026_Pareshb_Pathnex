@@ -1,0 +1,39 @@
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: pathnex-db
+
+spec:
+  serviceName: "pathnex-db"
+  replicas: 3
+
+  selector:
+    matchLabels:
+      app: pathnex-db
+
+  template:
+    metadata:
+      labels:
+        app: pathnex-db
+
+    spec:
+      containers:
+        - name: db
+          image: mysql:5.7
+
+          volumeMounts:
+            - mountPath: /var/lib/mysql
+              name: mysql-storage
+
+  volumeClaimTemplates:
+    - metadata:
+        name: mysql-storage
+
+      spec:
+        accessModes:
+          - ReadWriteOnce
+
+        resources:
+          requests:
+            storage: 1Gi
