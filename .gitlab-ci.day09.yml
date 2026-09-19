@@ -1,0 +1,7 @@
+stages:
+  - deploy
+
+deploy:
+  stage: deploy
+  script:
+    - kubectl apply -f kubernetes/day09-hpa.yml

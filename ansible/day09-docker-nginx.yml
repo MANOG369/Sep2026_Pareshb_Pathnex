@@ -1,0 +1,17 @@
+- name: Setup Docker Container for Nginx
+  hosts: all
+  become: yes
+
+  tasks:
+    - name: Pull Nginx image
+      docker_image:
+        name: nginx
+        source: pull
+
+    - name: Run Nginx container
+      docker_container:
+        name: nginx-container
+        image: nginx
+        state: started
+        published_ports:
+          - "8080:80"
