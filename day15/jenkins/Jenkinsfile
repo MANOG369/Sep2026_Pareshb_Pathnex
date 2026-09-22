@@ -1,0 +1,35 @@
+pipeline {
+    agent any
+
+    environment {
+        IMAGE_NAME = 'pathnex-web-app'
+        DEPLOY_ENV = 'production'
+    }
+
+    stages {
+        stage('Build') {
+            steps {
+                echo 'Building Docker image...'
+                docker.build("${env.IMAGE_NAME}")
+            }
+        }
+
+        stage('Test') {
+            steps {
+                echo 'Running tests...'
+            }
+        }
+
+        stage('Deploy to Kubernetes') {
+            steps {
+                script {
+                    if (env.DEPLOY_ENV == 'production') {
+                        sh 'kubectl apply -f kubernetes/prod-deployment.yaml'
+                    } else {
+                        sh 'kubectl apply -f kubernetes/dev-deployment.yaml'
+                    }
+                }
+            }
+        }
+    }
+}
