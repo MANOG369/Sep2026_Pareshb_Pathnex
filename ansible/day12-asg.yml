@@ -1,0 +1,14 @@
+- name: Setup Auto Scaling Group
+  hosts: all
+  become: yes
+
+  tasks:
+    - name: Create Launch Configuration
+      ec2_asg:
+        name: pathnex-asg
+        region: us-east-1
+        launch_config_name: pathnex-launch-config
+        min_size: 1
+        max_size: 3
+        desired_capacity: 2
+        vpc_zone_identifier:  subnet-0f6587ec903acbb1f
