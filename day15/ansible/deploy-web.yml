@@ -1,0 +1,23 @@
+---
+- name: Deploy web application to multiple hosts
+  hosts: all
+  become: yes
+
+  tasks:
+
+    - name: Install Apache
+      package:
+        name: httpd
+        state: present
+
+    - name: Copy web application
+      copy:
+        src: ./index.html
+        dest: /var/www/html/index.html
+        mode: '0644'
+
+    - name: Start Apache
+      service:
+        name: httpd
+        state: started
+        enabled: yes
