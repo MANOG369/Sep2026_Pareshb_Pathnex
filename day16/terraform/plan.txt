@@ -1,0 +1,236 @@
+data.aws_ssm_parameter.al2023_mumbai: Reading...
+aws_vpc.mumbai: Refreshing state... [id=vpc-0cdee2a0cde955069]
+data.aws_ssm_parameter.al2023_mumbai: Read complete after 0s [id=/aws/service/ami-amazon-linux-latest/al2023-ami-kernel-default-x86_64]
+aws_subnet.mumbai: Refreshing state... [id=subnet-0f21c86023c92160b]
+aws_security_group.mumbai: Refreshing state... [id=sg-06a4d40f956dccda7]
+aws_internet_gateway.mumbai: Refreshing state... [id=igw-044341b17ef0398a0]
+aws_route_table.mumbai: Refreshing state... [id=rtb-0ef4f8ddef942edbb]
+aws_route_table_association.mumbai: Refreshing state... [id=rtbassoc-07e7d7b6778bff032]
+data.aws_ssm_parameter.al2023_virginia: Reading...
+aws_vpc.virginia: Refreshing state... [id=vpc-093e2aa23540187d9]
+data.aws_ssm_parameter.al2023_virginia: Read complete after 1s [id=/aws/service/ami-amazon-linux-latest/al2023-ami-kernel-default-x86_64]
+aws_security_group.virginia: Refreshing state... [id=sg-067402dff778b9aec]
+aws_subnet.virginia: Refreshing state... [id=subnet-0c8d3c99073ebb9f8]
+aws_internet_gateway.virginia: Refreshing state... [id=igw-0ab75190f89676de3]
+aws_route_table.virginia: Refreshing state... [id=rtb-0e4f6af1c6a72c9a1]
+aws_instance.virginia: Refreshing state... [id=i-020302a2b9b5aa1b2]
+aws_route_table_association.virginia: Refreshing state... [id=rtbassoc-093b1276a54665199]
+
+Terraform used the selected providers to generate the following execution
+plan. Resource actions are indicated with the following symbols:
+  + create
+-/+ destroy and then create replacement
+
+Terraform will perform the following actions:
+
+  # aws_instance.mumbai will be created
+  + resource "aws_instance" "mumbai" {
+      + ami                                  = (sensitive value)
+      + arn                                  = (known after apply)
+      + associate_public_ip_address          = true
+      + availability_zone                    = (known after apply)
+      + disable_api_stop                     = (known after apply)
+      + disable_api_termination              = (known after apply)
+      + ebs_optimized                        = (known after apply)
+      + enable_primary_ipv6                  = (known after apply)
+      + force_destroy                        = false
+      + get_password_data                    = false
+      + host_id                              = (known after apply)
+      + host_resource_group_arn              = (known after apply)
+      + iam_instance_profile                 = (known after apply)
+      + id                                   = (known after apply)
+      + instance_initiated_shutdown_behavior = (known after apply)
+      + instance_lifecycle                   = (known after apply)
+      + instance_state                       = (known after apply)
+      + instance_type                        = "t3.micro"
+      + ipv6_address_count                   = (known after apply)
+      + ipv6_addresses                       = (known after apply)
+      + key_name                             = (known after apply)
+      + monitoring                           = (known after apply)
+      + outpost_arn                          = (known after apply)
+      + password_data                        = (known after apply)
+      + placement_group                      = (known after apply)
+      + placement_group_id                   = (known after apply)
+      + placement_partition_number           = (known after apply)
+      + primary_network_interface_id         = (known after apply)
+      + private_dns                          = (known after apply)
+      + private_ip                           = (known after apply)
+      + public_dns                           = (known after apply)
+      + public_ip                            = (known after apply)
+      + region                               = "ap-south-1"
+      + secondary_private_ips                = (known after apply)
+      + security_groups                      = [
+          + "sg-06a4d40f956dccda7",
+        ]
+      + source_dest_check                    = true
+      + spot_instance_request_id             = (known after apply)
+      + subnet_id                            = "subnet-0f21c86023c92160b"
+      + tags                                 = {
+          + "Name" = "Day16-Mumbai-EC2"
+        }
+      + tags_all                             = {
+          + "Name" = "Day16-Mumbai-EC2"
+        }
+      + tenancy                              = (known after apply)
+      + user_data_base64                     = (known after apply)
+      + user_data_replace_on_change          = false
+      + vpc_security_group_ids               = (known after apply)
+
+      + capacity_reservation_specification (known after apply)
+
+      + cpu_options (known after apply)
+
+      + ebs_block_device (known after apply)
+
+      + enclave_options (known after apply)
+
+      + ephemeral_block_device (known after apply)
+
+      + instance_market_options (known after apply)
+
+      + maintenance_options (known after apply)
+
+      + metadata_options (known after apply)
+
+      + network_interface (known after apply)
+
+      + primary_network_interface (known after apply)
+
+      + private_dns_name_options (known after apply)
+
+      + root_block_device (known after apply)
+
+      + secondary_network_interface (known after apply)
+    }
+
+  # aws_instance.virginia must be replaced
+-/+ resource "aws_instance" "virginia" {
+      ~ arn                                  = "arn:aws:ec2:us-east-1:534283254276:instance/i-020302a2b9b5aa1b2" -> (known after apply)
+      ~ availability_zone                    = "us-east-1a" -> (known after apply)
+      ~ disable_api_stop                     = false -> (known after apply)
+      ~ disable_api_termination              = false -> (known after apply)
+      ~ ebs_optimized                        = false -> (known after apply)
+      + enable_primary_ipv6                  = (known after apply)
+      - hibernation                          = false -> null
+      + host_id                              = (known after apply)
+      + host_resource_group_arn              = (known after apply)
+      + iam_instance_profile                 = (known after apply)
+      ~ id                                   = "i-020302a2b9b5aa1b2" -> (known after apply)
+      ~ instance_initiated_shutdown_behavior = "stop" -> (known after apply)
+      + instance_lifecycle                   = (known after apply)
+      ~ instance_state                       = "running" -> (known after apply)
+      ~ ipv6_address_count                   = 0 -> (known after apply)
+      ~ ipv6_addresses                       = [] -> (known after apply)
+      + key_name                             = (known after apply)
+      ~ monitoring                           = false -> (known after apply)
+      + outpost_arn                          = (known after apply)
+      + password_data                        = (known after apply)
+      + placement_group                      = (known after apply)
+      + placement_group_id                   = (known after apply)
+      ~ placement_partition_number           = 0 -> (known after apply)
+      ~ primary_network_interface_id         = "eni-021cd98bab1cd8530" -> (known after apply)
+      ~ private_dns                          = "ip-10-20-1-232.ec2.internal" -> (known after apply)
+      ~ private_ip                           = "10.20.1.232" -> (known after apply)
+      + public_dns                           = (known after apply)
+      ~ public_ip                            = "3.226.239.39" -> (known after apply)
+      ~ secondary_private_ips                = [] -> (known after apply)
+      ~ security_groups                      = [ # forces replacement
+          + "sg-067402dff778b9aec",
+        ]
+      + spot_instance_request_id             = (known after apply)
+        tags                                 = {
+            "Name" = "Day16-Virginia-EC2"
+        }
+      ~ tenancy                              = "default" -> (known after apply)
+      + user_data_base64                     = (known after apply)
+      ~ vpc_security_group_ids               = [
+          - "sg-067402dff778b9aec",
+        ] -> (known after apply)
+        # (10 unchanged attributes hidden)
+
+      ~ capacity_reservation_specification (known after apply)
+      - capacity_reservation_specification {
+          - capacity_reservation_preference = "open" -> null
+        }
+
+      ~ cpu_options (known after apply)
+      - cpu_options {
+          - core_count            = 1 -> null
+          - threads_per_core      = 2 -> null
+            # (2 unchanged attributes hidden)
+        }
+
+      - credit_specification {
+          - cpu_credits = "unlimited" -> null
+        }
+
+      ~ ebs_block_device (known after apply)
+
+      ~ enclave_options (known after apply)
+      - enclave_options {
+          - enabled = false -> null
+        }
+
+      ~ ephemeral_block_device (known after apply)
+
+      ~ instance_market_options (known after apply)
+
+      ~ maintenance_options (known after apply)
+      - maintenance_options {
+          - auto_recovery = "default" -> null
+        }
+
+      ~ metadata_options (known after apply)
+      - metadata_options {
+          - http_endpoint               = "enabled" -> null
+          - http_protocol_ipv6          = "disabled" -> null
+          - http_put_response_hop_limit = 2 -> null
+          - http_tokens                 = "required" -> null
+          - instance_metadata_tags      = "disabled" -> null
+        }
+
+      ~ network_interface (known after apply)
+
+      ~ primary_network_interface (known after apply)
+      - primary_network_interface {
+          - delete_on_termination = true -> null
+          - network_interface_id  = "eni-021cd98bab1cd8530" -> null
+        }
+
+      ~ private_dns_name_options (known after apply)
+      - private_dns_name_options {
+          - enable_resource_name_dns_a_record    = false -> null
+          - enable_resource_name_dns_aaaa_record = false -> null
+          - hostname_type                        = "ip-name" -> null
+        }
+
+      ~ root_block_device (known after apply)
+      - root_block_device {
+          - delete_on_termination = true -> null
+          - device_name           = "/dev/xvda" -> null
+          - encrypted             = false -> null
+          - iops                  = 3000 -> null
+          - tags                  = {} -> null
+          - tags_all              = {} -> null
+          - throughput            = 125 -> null
+          - volume_id             = "vol-0e9521c42274cf889" -> null
+          - volume_size           = 8 -> null
+          - volume_type           = "gp3" -> null
+            # (1 unchanged attribute hidden)
+        }
+
+      ~ secondary_network_interface (known after apply)
+    }
+
+Plan: 2 to add, 0 to change, 1 to destroy.
+
+Changes to Outputs:
+  + mumbai_instance_id   = (known after apply)
+  + mumbai_public_ip     = (known after apply)
+  ~ virginia_instance_id = "i-020302a2b9b5aa1b2" -> (known after apply)
+  ~ virginia_public_ip   = "3.226.239.39" -> (known after apply)
+
+─────────────────────────────────────────────────────────────────────────────
+
+Note: You didn't use the -out option to save this plan, so Terraform can't
+guarantee to take exactly these actions if you run "terraform apply" now.

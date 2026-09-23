@@ -1,0 +1,33 @@
+---
+- name: Create and start EC2 instance
+  hosts: localhost
+  connection: local
+  gather_facts: false
+
+  collections:
+    - amazon.aws
+
+  vars:
+    aws_region: ap-south-1
+    instance_type: t3.micro
+    ami_id: ami-066c4849e6b3a1e3d
+    instance_name: Day16-Ansible-EC2
+
+  tasks:
+
+    - name: Create EC2 instance
+      amazon.aws.ec2_instance:
+        name: "{{ instance_name }}"
+        region: "{{ aws_region }}"
+        instance_type: "{{ instance_type }}"
+        image_id: "{{ ami_id }}"
+        wait: true
+        state: running
+      register: ec2_result
+
+    - name: Display instance information
+      ansible.builtin.debug:
+        msg:
+          - "Instance ID: {{ ec2_result.instances[0].instance_id }}"
+          - "Instance State: {{ ec2_result.instances[0].state.name }}"
+          - "Private IP: {{ ec2_result.instances[0].private_ip_address | default('N/A') }}"

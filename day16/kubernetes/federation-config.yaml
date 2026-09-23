@@ -1,0 +1,22 @@
+apiVersion: v1
+kind: Config
+clusters:
+  - name: cluster-mumbai
+    cluster:
+      server: https://cluster-mumbai.example.local
+  - name: cluster-virginia
+    cluster:
+      server: https://cluster-virginia.example.local
+contexts:
+  - name: mumbai
+    context:
+      cluster: cluster-mumbai
+      user: federation-user
+  - name: virginia
+    context:
+      cluster: cluster-virginia
+      user: federation-user
+users:
+  - name: federation-user
+    user:
+      token: REPLACE_WITH_CLUSTER_TOKEN

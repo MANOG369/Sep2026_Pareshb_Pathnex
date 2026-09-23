@@ -1,0 +1,34 @@
+stages:
+  - validate
+  - terraform
+  - docker
+
+variables:
+  TF_IN_AUTOMATION: "true"
+
+validate_kubernetes:
+  stage: validate
+  script:
+    - echo "Validating Kubernetes deployment configuration"
+    - test -f day16/kubernetes/app.yaml
+    - test -f day16/kubernetes/federation-config.yaml
+
+terraform_plan:
+  stage: terraform
+  script:
+    - echo "Terraform validation and planning"
+    - cd day16/terraform
+    - terraform init -backend=false
+    - terraform validate
+  rules:
+    - changes:
+        - day16/terraform/**/*
+
+docker_build:
+  stage: docker
+  script:
+    - echo "Docker image build stage"
+    - test -f day16/docker/Dockerfile
+  rules:
+    - changes:
+        - day16/docker/**/*

@@ -1,0 +1,57 @@
+pipeline {
+    agent any
+
+    environment {
+        KUBECONFIG = credentials('kubeconfig-multi-cluster')
+    }
+
+    stages {
+        stage('Checkout') {
+            steps {
+                checkout scm
+            }
+        }
+
+        stage('Validate Manifest') {
+            steps {
+                sh 'kubectl apply --dry-run=client --validate=false -f day16/kubernetes/app.yaml'
+            }
+        }
+
+        stage('Deploy to Mumbai') {
+            steps {
+                sh '''
+                    kubectl --context=mumbai \
+                      apply -f day16/kubernetes/app.yaml
+                '''
+            }
+        }
+
+        stage('Deploy to Virginia') {
+            steps {
+                sh '''
+                    kubectl --context=virginia \
+                      apply -f day16/kubernetes/app.yaml
+                '''
+            }
+        }
+
+        stage('Verify Deployment') {
+            steps {
+                sh '''
+                    kubectl --context=mumbai get deployment day16-app
+                    kubectl --context=virginia get deployment day16-app
+                '''
+            }
+        }
+    }
+
+    post {
+        success {
+            echo 'Multi-cluster deployment completed successfully.'
+        }
+        failure {
+            echo 'Multi-cluster deployment failed. Check the Jenkins console logs.'
+        }
+    }
+}
