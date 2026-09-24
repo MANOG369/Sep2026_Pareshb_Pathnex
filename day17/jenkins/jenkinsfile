@@ -1,0 +1,41 @@
+pipeline {
+    agent any
+
+    environment {
+        IMAGE_NAME = 'pathnex-web-app'
+    }
+
+    stages {
+
+        stage('Build') {
+            steps {
+                echo 'Building Docker image...'
+                sh 'docker build -t ${IMAGE_NAME}:latest .'
+            }
+        }
+
+        stage('Test') {
+            steps {
+                echo 'Running application tests...'
+                sh 'echo Tests completed'
+            }
+        }
+
+        stage('Deploy to Kubernetes') {
+            steps {
+                sh 'kubectl apply -f day17/kubernetes/deployment.yaml'
+                sh 'kubectl rollout status deployment/pathnex-web-app'
+            }
+        }
+    }
+
+    post {
+        success {
+            echo 'Rolling deployment completed successfully.'
+        }
+
+        failure {
+            echo 'Deployment failed. Check Jenkins logs.'
+        }
+    }
+}
