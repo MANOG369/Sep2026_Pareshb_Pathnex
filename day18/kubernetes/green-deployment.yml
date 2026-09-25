@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: green-deployment
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: pathnex-web-app
+      version: green
+  template:
+    metadata:
+      labels:
+        app: pathnex-web-app
+        version: green
+    spec:
+      containers:
+        - name: nginx
+          image: nginx:alpine
+          ports:
+            - containerPort: 80
