@@ -1,1 +1,6 @@
 terraform/.terraform.lock.hcl
+day16/kubernetes/kubectl
+day16/kubernetes/kubectl
+**/.terraform/
+*.tfstate
+*.tfstate.*
