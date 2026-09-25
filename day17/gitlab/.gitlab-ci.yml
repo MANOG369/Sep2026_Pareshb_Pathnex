@@ -1,0 +1,33 @@
+stages:
+  - build
+  - push
+  - deploy
+
+variables:
+  IMAGE_NAME: "pathnex-web-app"
+
+build:
+  stage: build
+  script:
+    - echo "Building Docker image"
+    - docker build -t "$IMAGE_NAME" .
+
+push:
+  stage: push
+  script:
+    - echo "Logging into GitLab Container Registry"
+    - echo "$CI_REGISTRY_PASSWORD" | docker login "$CI_REGISTRY" -u "$CI_REGISTRY_USER" --password-stdin
+    - docker tag "$IMAGE_NAME" "$CI_REGISTRY_IMAGE:latest"
+    - docker push "$CI_REGISTRY_IMAGE:latest"
+
+deploy_aws:
+  stage: deploy
+  script:
+    - echo "Deploying to AWS Kubernetes cluster"
+    - kubectl --context=aws-cluster apply -f day17/kubernetes/deployment.yaml
+
+deploy_azure:
+  stage: deploy
+  script:
+    - echo "Deploying to Azure Kubernetes cluster"
+    - kubectl --context=azure-cluster apply -f day17/kubernetes/deployment.yaml

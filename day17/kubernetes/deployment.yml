@@ -1,0 +1,55 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: pathnex-web-app
+spec:
+  replicas: 3
+
+  selector:
+    matchLabels:
+      app: pathnex-web-app
+
+  template:
+    metadata:
+      labels:
+        app: pathnex-web-app
+
+    spec:
+      containers:
+        - name: nginx
+          image: nginx:alpine
+
+          ports:
+            - containerPort: 80
+
+          volumeMounts:
+            - name: health-page
+              mountPath: /usr/share/nginx/html/healthz.html
+              subPath: healthz.html
+
+          livenessProbe:
+            httpGet:
+              path: /healthz.html
+              port: 80
+            initialDelaySeconds: 5
+            periodSeconds: 10
+
+          readinessProbe:
+            httpGet:
+              path: /healthz.html
+              port: 80
+            initialDelaySeconds: 5
+            periodSeconds: 10
+
+      volumes:
+        - name: health-page
+          configMap:
+            name: pathnex-health
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: pathnex-health
+data:
+  healthz.html: |
+    OK
