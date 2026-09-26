@@ -1,0 +1,21 @@
+stages:
+  - build
+  - push
+  - deploy
+
+build:
+  stage: build
+  script:
+    - docker build -t "$CI_REGISTRY_IMAGE:latest" ./docker
+
+push:
+  stage: push
+  script:
+    - echo "$CI_REGISTRY_PASSWORD" | docker login "$CI_REGISTRY" -u "$CI_REGISTRY_USER" --password-stdin
+    - docker push "$CI_REGISTRY_IMAGE:latest"
+
+deploy:
+  stage: deploy
+  script:
+    - kubectl apply -f kubernetes/fluentd.yml
+    - kubectl get pods
