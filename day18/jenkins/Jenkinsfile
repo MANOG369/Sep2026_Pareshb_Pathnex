@@ -1,0 +1,27 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('Build') {
+            steps {
+                echo 'Building Docker image...'
+                sh 'docker build -t pathnex-web-app .'
+            }
+        }
+
+        stage('Test') {
+            steps {
+                echo 'Running tests...'
+            }
+        }
+
+        stage('Blue-Green Deployment') {
+            steps {
+                sh 'kubectl apply -f kubernetes/blue-deployment.yml'
+                sh 'kubectl apply -f kubernetes/green-deployment.yml'
+                sh 'kubectl rollout status deployment/blue-deployment'
+                sh 'kubectl rollout status deployment/green-deployment'
+            }
+        }
+    }
+}

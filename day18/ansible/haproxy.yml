@@ -1,0 +1,32 @@
+---
+- name: Setup HAProxy Load Balancer
+  hosts: all
+  become: yes
+
+  tasks:
+    - name: Install HAProxy
+      ansible.builtin.dnf:
+        name: haproxy
+        state: present
+
+    - name: Create HAProxy configuration
+      ansible.builtin.template:
+        src: haproxy.cfg.j2
+        dest: /etc/haproxy/haproxy.cfg
+        owner: root
+        group: root
+        mode: "0644"
+        validate: "haproxy -c -f %s"
+      notify: Restart HAProxy
+
+    - name: Enable and start HAProxy
+      ansible.builtin.service:
+        name: haproxy
+        state: started
+        enabled: yes
+
+  handlers:
+    - name: Restart HAProxy
+      ansible.builtin.service:
+        name: haproxy
+        state: restarted

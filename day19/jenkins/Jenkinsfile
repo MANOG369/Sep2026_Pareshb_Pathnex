@@ -1,0 +1,28 @@
+pipeline {
+    agent any
+
+    stages {
+
+        stage('Build') {
+            steps {
+                echo 'Building Docker image...'
+                sh 'docker build -t pathnex-web-app ./docker'
+            }
+        }
+
+        stage('Test') {
+            steps {
+                echo 'Testing Docker image...'
+                sh 'docker image inspect pathnex-web-app'
+            }
+        }
+
+        stage('Monitor Deployment') {
+            steps {
+                echo 'Checking Kubernetes deployment status...'
+                sh 'kubectl apply -f kubernetes/fluentd.yml'
+                sh 'kubectl get pods'
+            }
+        }
+    }
+}
