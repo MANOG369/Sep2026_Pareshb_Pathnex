@@ -1,0 +1,15 @@
+---
+- name: Configure Firewall with iptables
+  hosts: all
+  become: yes
+
+  tasks:
+    - name: Set default policies to drop all traffic
+      command: iptables -P INPUT DROP
+
+    - name: Allow SSH and HTTP traffic
+      command: iptables -A INPUT -p tcp --dport 22 -j ACCEPT
+      command: iptables -A INPUT -p tcp --dport 80 -j ACCEPT
+
+    - name: Save iptables configuration
+      command: service iptables save
