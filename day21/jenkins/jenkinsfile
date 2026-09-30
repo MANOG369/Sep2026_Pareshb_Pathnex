@@ -1,0 +1,19 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('Backup') {
+            steps {
+                echo 'Backing up Jenkins workspace...'
+                sh 'tar -czvf /tmp/jenkins-backup.tar.gz ${WORKSPACE}'
+            }
+        }
+
+        stage('Restore') {
+            steps {
+                echo 'Restoring Jenkins workspace...'
+                sh 'tar -xzvf /tmp/jenkins-backup.tar.gz -C ${WORKSPACE}'
+            }
+        }
+    }
+}
