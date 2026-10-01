@@ -1,0 +1,6 @@
+---
+- name: Deploy AWS Lambda Function
+  hosts: localhost
+  tasks:
+    - name: Create Lambda function
+      command: aws lambda create-function --function-name pathnex-lambda --runtime python3.8 --role arn:aws:iam::123456789012:role/lambda-execution-role --handler lambda_function.lambda_handler --zip-file fileb://lambda.zip
