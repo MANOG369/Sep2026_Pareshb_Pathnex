@@ -1,0 +1,20 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('Build') {
+            steps {
+                echo 'Building Lambda function...'
+                sh 'zip -r lambda.zip lambda/'
+            }
+        }
+
+        stage('Deploy to AWS Lambda') {
+            steps {
+                script {
+                    sh 'aws lambda update-function-code --function-name pathnex-lambda --zip-file fileb://lambda.zip'
+                }
+            }
+        }
+    }
+}

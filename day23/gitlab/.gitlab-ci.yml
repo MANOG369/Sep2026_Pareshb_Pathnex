@@ -1,0 +1,13 @@
+stages:
+  - build
+  - deploy
+
+build:
+  stage: build
+  script:
+    - zip -r lambda.zip lambda/
+
+deploy:
+  stage: deploy
+  script:
+    - aws lambda update-function-code --function-name pathnex-lambda --zip-file fileb://lambda.zip
