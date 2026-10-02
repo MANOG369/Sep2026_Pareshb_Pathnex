@@ -1,0 +1,16 @@
+---
+- name: Backup and Restore Files
+  hosts: all
+  become: yes
+
+  tasks:
+    - name: Create backup of /etc directory
+      command: tar -czvf /tmp/etc-backup.tar.gz /etc
+
+    - name: Copy backup to remote server
+      copy:
+        src: /tmp/etc-backup.tar.gz
+        dest: /tmp/etc-backup.tar.gz
+
+    - name: Restore backup from remote server
+      command: tar -xzvf /tmp/etc-backup.tar.gz -C /

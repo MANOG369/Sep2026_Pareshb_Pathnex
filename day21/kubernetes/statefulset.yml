@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: pathnex-statefulset
+spec:
+  serviceName: "pathnex"
+  replicas: 3
+
+  selector:
+    matchLabels:
+      app: pathnex
+
+  template:
+    metadata:
+      labels:
+        app: pathnex
+
+    spec:
+      containers:
+        - name: nginx
+          image: nginx
+
+          volumeMounts:
+            - mountPath: /usr/share/nginx/html
+              name: web-content
+
+  volumeClaimTemplates:
+    - metadata:
+        name: web-content
+
+      spec:
+        accessModes:
+          - ReadWriteOnce
+
+        resources:
+          requests:
+            storage: 5Gi
