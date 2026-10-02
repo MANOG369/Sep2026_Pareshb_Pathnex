@@ -1,0 +1,9 @@
+---
+- name: Deploy Docker Containers with Helm
+  hosts: localhost
+  tasks:
+    - name: Install Helm
+      command: curl https://raw.githubusercontent.com/helm/helm/master/scripts/get-helm-3 | bash
+
+    - name: Deploy microservices with Helm
+      command: helm install pathnex-app ./microservice-chart
