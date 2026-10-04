@@ -1,0 +1,12 @@
+stages:
+  - deploy
+
+deploy_cluster_1:
+  stage: deploy
+  script:
+    - kubectl --context=us-east-cluster apply -f kubernetes/deployment.yaml
+
+deploy_cluster_2:
+  stage: deploy
+  script:
+    - kubectl --context=us-west-cluster apply -f kubernetes/deployment.yaml
