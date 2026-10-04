@@ -1,0 +1,24 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('Scale Up') {
+            steps {
+                echo 'Scaling up Jenkins pipeline agents for heavy workloads...'
+                // Simulating scaling logic
+            }
+        }
+
+        stage('Build') {
+            steps {
+                echo 'Building project...'
+            }
+        }
+
+        stage('Deploy') {
+            steps {
+                echo 'Deploying project...'
+            }
+        }
+    }
+}
