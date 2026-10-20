@@ -1,0 +1,14 @@
+stages:
+  - monitor
+  - test
+
+monitor:
+  stage: monitor
+  script:
+    - aws cloudwatch put-metric-data --namespace "AWS/EC2" --metric-name "CPUUtilization" --value 90
+
+test:
+  stage: test
+  script:
+    - echo "Running tests..."
+
