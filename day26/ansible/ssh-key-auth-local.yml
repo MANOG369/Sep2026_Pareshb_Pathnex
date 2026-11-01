@@ -1,0 +1,9 @@
+- name: Implement SSH Key Authentication on Local EC2
+  hosts: local
+  become: yes
+  tasks:
+    - name: Add existing SSH public key to authorized_keys
+      ansible.posix.authorized_key:
+        user: ssm-user
+        state: present
+        key: "{{ lookup('file', '/home/ssm-user/.ssh/id_rsa.pub') }}"
