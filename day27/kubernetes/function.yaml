@@ -1,0 +1,12 @@
+apiVersion: kubeless.io/v1beta1
+kind: Function
+metadata:
+  name: pathnex-lambda
+  namespace: default
+spec:
+  runtime: nodejs14
+  handler: index.handler
+  function: |
+    module.exports = function(event, context) {
+      context.succeed('Hello World');
+    };
