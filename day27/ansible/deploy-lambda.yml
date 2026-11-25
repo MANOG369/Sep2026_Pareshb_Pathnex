@@ -1,0 +1,5 @@
+- name: Deploy Serverless Lambda Function
+  hosts: localhost
+  tasks:
+    - name: Create Lambda function
+      command: aws lambda create-function --function-name pathnex-lambda --runtime nodejs14.x --role arn:aws:iam::123456789012:role/lambda-role --handler index.handler --zip-file fileb://lambda.zip
